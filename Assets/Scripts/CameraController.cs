@@ -19,7 +19,6 @@ public class CameraController : MonoBehaviour {
         return forward;
 	}
 
-	// Update is called once per frame
 	void Update () {
         Camera camera = this.GetComponent<Camera>();
 
