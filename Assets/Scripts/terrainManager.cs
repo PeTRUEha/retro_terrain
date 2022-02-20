@@ -6,9 +6,9 @@ public class terrainManager : MonoBehaviour {
 	public int terrainWidth, elementWidth;
 	public terrainElement terrainPrefab;
 	[HideInInspector]
-    public Vector3[] coords;
+    public Vector3[,] coords;
     [HideInInspector]
-	public terrainElement[] terrainElements;
+	public terrainElement[,] terrainElements;
 
     
 	// void OnDrawGizmosSelected()
@@ -29,14 +29,14 @@ public class terrainManager : MonoBehaviour {
 
     private void CreateCoords()
     {
-        coords = new Vector3[(terrainWidth + 1) * (terrainWidth + 1)];
+        coords = new Vector3[(terrainWidth + 1), (terrainWidth + 1)];
         /*
         every side needs to be 1 unity longer
         */
-        for (int i = 0, z = 0; z <= terrainWidth; z++)
+        for (int z = 0; z <= terrainWidth; z++)
         {
             //outer loop, z-axis
-            for (int x = 0; x <= terrainWidth; x++, i++) 
+            for (int x = 0; x <= terrainWidth; x++) 
             {
                 /* 
                 inner loop, x-axis
@@ -45,7 +45,7 @@ public class terrainManager : MonoBehaviour {
                 */
                 float y = Mathf.PerlinNoise((float)x / 20, (float)z / 20) *10;
                 y = Mathf.Floor(y) / 2;
-                coords[i] = new Vector3(x, y, z);
+                coords[x, z] = new Vector3(x, y, z);
             } 
         }
 
@@ -53,18 +53,19 @@ public class terrainManager : MonoBehaviour {
 
 	private void CreateTerrainElements()
 	{
-		int tilesPerSide = terrainWidth / elementWidth;
-		terrainElements = new terrainElement[tilesPerSide*tilesPerSide];
+        //Why not just have a single big chunk instead of multiple terrain elements?
+		int elementsPerSide = terrainWidth / elementWidth;
+		terrainElements = new terrainElement[elementsPerSide, elementsPerSide];
 
-		for (int i = 0, z = 0; z < tilesPerSide; z++)
+		for (int z = 0; z < elementsPerSide; z++)
         {
             //outer loop, z-axis
-            for (int x = 0; x < tilesPerSide; x++, i++) 
+            for (int x = 0; x < elementsPerSide; x++) 
             {
 
                 terrainElement elementInstance = Instantiate(terrainPrefab, this.transform);
                 elementInstance.Initialize(x,z);
-                terrainElements[i] = elementInstance;
+                terrainElements[x, z] = elementInstance;
             }
         }
 	}

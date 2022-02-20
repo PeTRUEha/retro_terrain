@@ -4,53 +4,12 @@
 [RequireComponent(typeof(MeshRenderer))]
 public class terrainElement : MonoBehaviour
 {
-    // public int width = 10;
-    private Mesh mesh;
-    private MeshFilter meshFilter;
-    // private Vector3[] coords;
+    public Mesh mesh;
+    public MeshFilter meshFilter;
     private Vector3[] verts;
     private Color[] colors;
     private int[] tris;
     private Vector2[] uvs;
-
-    // void OnDrawGizmosSelected()
-    // {
-    //     foreach(Vector3 vec3 in coords)
-    //     {
-    //         Gizmos.color = Color.red;
-    //         Gizmos.DrawSphere(vec3, .1f);
-    //     }
-    // }
-
-    // void Start()
-    // { 
-    //     CreateCoords();
-    //     CreateMesh();
-    // }
-
-    // private void CreateCoords()
-    // {
-    //     coords = new Vector3[(width + 1) * (width + 1)];
-    //     /*
-    //     every side needs to be 1 unity longer
-    //     */
-    //     for (int i = 0, z = 0; z <= width; z++)
-    //     {
-    //         //outer loop, z-axis
-    //         for (int x = 0; x <= width; x++, i++) 
-    //         {
-    //             /* 
-    //             inner loop, x-axis
-    //             setting height value based on perlin noise
-    //             needs to be optimized low, mid and high frequency noise
-    //             */
-    //             float y = Mathf.PerlinNoise((float)x / 20, (float)z / 20) *10;
-    //             y = Mathf.Floor(y) / 2;
-    //             coords[i] = new Vector3(x, y, z);
-    //         } 
-    //     }
-
-    // }
 
     private bool TriangulationCheck(Vector3 coord0, Vector3 coord1)
     {
@@ -101,7 +60,8 @@ public class terrainElement : MonoBehaviour
         tris = new int[verts.Length];
 
         //pivot point inside of the coord array
-        int origin = index_x * width + index_z * width * (tWidth +1);
+        int origin_x = index_x * width;
+        int origin_z = index_z * width;
     
         for (int i = 0, z = 0; z < width; z++) 
         {
@@ -109,27 +69,27 @@ public class terrainElement : MonoBehaviour
 			for (int x = 0; x < width; x++, i += 6) 
             {
                 //setting verts                    
-                verts[i] =   terrainManager.instance.coords[origin +( x * (tWidth + 1) + z)];               
-                verts[i+1] = terrainManager.instance.coords[origin +( (x +1) * (tWidth+1) + z)];            
-                verts[i+2] = terrainManager.instance.coords[origin + ((x +1) * (tWidth+1) + z + 1)];
-                verts[i+3] = terrainManager.instance.coords[origin + (x * (tWidth+1) + z + 1)];
+                verts[i] =   terrainManager.instance.coords[origin_x + x, origin_z + z];               
+                verts[i+1] = terrainManager.instance.coords[origin_x + x, origin_z + z + 1];            
+                verts[i+2] = terrainManager.instance.coords[origin_x + x + 1, origin_z + z + 1];
+                verts[i+3] = terrainManager.instance.coords[origin_x + x + 1, origin_z + z];
 
-                colors[i] =  VertexColor(terrainManager.instance.coords[origin +( x * (tWidth + 1) + z)].y);
-                colors[i+1] = VertexColor(terrainManager.instance.coords[origin +( (x +1) * (tWidth+1) + z)].y);
-                colors[i+2] = VertexColor(terrainManager.instance.coords[origin + ((x +1) * (tWidth+1) + z + 1)].y);
-                colors[i+3] = VertexColor(terrainManager.instance.coords[origin + (x * (tWidth+1) + z + 1)].y);
+                colors[i] =  VertexColor(terrainManager.instance.coords[origin_x + x, origin_z + z].y);
+                colors[i+1] = VertexColor(terrainManager.instance.coords[origin_x + x, origin_z + z + 1].y);
+                colors[i+2] = VertexColor(terrainManager.instance.coords[origin_x + x + 1, origin_z + z + 1].y);
+                colors[i+3] = VertexColor(terrainManager.instance.coords[origin_x + x + 1, origin_z + z].y);
                 
                 
 
-                if(TriangulationCheck( terrainManager.instance.coords[origin + (x * (tWidth + 1) + z)],terrainManager.instance.coords[origin + ((x +1) * (tWidth+1) + z + 1)]))
+                if(TriangulationCheck( terrainManager.instance.coords[origin_x + x, origin_z + z], terrainManager.instance.coords[origin_x + x + 1, origin_z + z + 1]))
                 {
                     //setting extra vertices
-                    verts[i+4] = terrainManager.instance.coords[origin + (x * (tWidth + 1) + z)];
-                    verts[i+5] = terrainManager.instance.coords[origin + ((x +1) * (tWidth+1) + z + 1)];
+                    verts[i+4] = terrainManager.instance.coords[origin_x + x, origin_z + z];
+                    verts[i+5] = terrainManager.instance.coords[origin_x + x + 1, origin_z + z + 1];
 
-                    //setting vertex colors
-                    colors[i+4] = VertexColor(terrainManager.instance.coords[origin + (x * (tWidth + 1) + z)].y);
-                    colors[i+5] = VertexColor(terrainManager.instance.coords[origin + ((x +1) * (tWidth+1) + z + 1)].y);
+            //setting vertex colors
+                    colors[i+4] = VertexColor(terrainManager.instance.coords[origin_x + x, origin_z + z].y);
+                    colors[i+5] = VertexColor(terrainManager.instance.coords[origin_x + x + 1, origin_z + z + 1].y);
 
                     //setting tris
                     tris[i] = i;
@@ -150,12 +110,12 @@ public class terrainElement : MonoBehaviour
                 else
                 {
                     //setting extra vertices
-                    verts[i+4] = terrainManager.instance.coords[origin + (x * (tWidth+1) + z + 1)];
-                    verts[i+5] = terrainManager.instance.coords[origin +((x +1) * (tWidth+1) + z)];
+                    verts[i+4] = terrainManager.instance.coords[origin_x + x + 1, origin_z + z];
+                    verts[i+5] = terrainManager.instance.coords[origin_x + x, origin_z + z + 1];
 
                     //setting vertex colors
-                    colors[i+4] = VertexColor(terrainManager.instance.coords[origin + (x * (tWidth+1) + z + 1)].y);
-                    colors[i+5] = VertexColor(terrainManager.instance.coords[origin +((x +1) * (tWidth+1) + z)].y);
+                    colors[i+4] = VertexColor(terrainManager.instance.coords[origin_x + x + 1, origin_z + z].y);
+                    colors[i+5] = VertexColor(terrainManager.instance.coords[origin_x + x, origin_z + z + 1].y);
 
                     //setting tris
                     tris[i] = i;
