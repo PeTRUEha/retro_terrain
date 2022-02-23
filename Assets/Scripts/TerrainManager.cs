@@ -60,16 +60,16 @@ public class TerrainManager : MonoBehaviour {
 		terrainElements = new terrainElement[elementsPerSide, elementsPerSide];
 
 		for (int z = 0; z < elementsPerSide; z++)
-        {
-            //outer loop, z-axis
-            for (int x = 0; x < elementsPerSide; x++) 
-            {
+		{
+			//outer loop, z-axis
+			for (int x = 0; x < elementsPerSide; x++)
+			{
 
-                terrainElement elementInstance = Instantiate(terrainPrefab, this.transform);
-                elementInstance.Initialize(x,z);
-                terrainElements[x, z] = elementInstance;
-            }
-        }
+				terrainElement elementInstance = Instantiate(terrainPrefab, this.transform);
+				elementInstance.Initialize(x, z);
+				terrainElements[x, z] = elementInstance;
+			}
+		}
 	}
 	
 }
