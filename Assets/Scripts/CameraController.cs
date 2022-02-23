@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-	public float keabordTranslationSpeed = 20f;
-	public float mouseTranslationSpeed = 0.25f;
-    public float scrollSpeed = 16;
+	public float keyboardTranslationSpeed = 20f;
+	public float mouseTranslationSpeed = 0.12f;
+    public float scrollSpeed = 100;
 
     public float minCameraSize;
     public float maxCameraSize;
@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour {
         Vector2 rightward = - Vector2.Perpendicular(forward);
 		Vector2 keyboardTranslation = 
             (Input.GetAxis("Vertical") * forward + 
-             Input.GetAxis("Horizontal") * rightward) * keabordTranslationSpeed * Time.deltaTime * camera.orthographicSize;
+             Input.GetAxis("Horizontal") * rightward) * keyboardTranslationSpeed * Time.deltaTime * camera.orthographicSize;
             
 
         Vector2 mouseTranslation = Vector2.zero;

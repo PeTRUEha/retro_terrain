@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
-public class terrainManager : MonoBehaviour {
+public class TerrainManager : MonoBehaviour {
 
-    public static terrainManager instance;
+    public static TerrainManager instance;
 	public int terrainWidth, elementWidth;
 	public terrainElement terrainPrefab;
 	[HideInInspector]
     public Vector3[,] coords;
-    [HideInInspector]
-	public terrainElement[,] terrainElements;
+	terrainElement[,] terrainElements;
 
     
 	// void OnDrawGizmosSelected()
@@ -25,9 +24,12 @@ public class terrainManager : MonoBehaviour {
         instance = this;
         CreateCoords();
 		CreateTerrainElements();
+
+		var navGrid = FindObjectOfType<NavigationGrid>();
+		navGrid.Init(this.coords);
     }
 
-    private void CreateCoords()
+    void CreateCoords()
     {
         coords = new Vector3[(terrainWidth + 1), (terrainWidth + 1)];
         /*
@@ -51,7 +53,7 @@ public class terrainManager : MonoBehaviour {
 
     }
 
-	private void CreateTerrainElements()
+	void CreateTerrainElements()
 	{
         //Why not just have a single big chunk instead of multiple terrain elements?
 		int elementsPerSide = terrainWidth / elementWidth;
