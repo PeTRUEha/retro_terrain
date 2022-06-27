@@ -11,7 +11,7 @@ namespace Terrain
 		public Vector3[,] coords;
 		terrainElement[,] terrainElements;
 	
-		void Start()
+		void Awake()
 		{ 
 			instance = this;
 			CreateCoords();

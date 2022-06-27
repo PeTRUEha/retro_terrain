@@ -1,12 +1,14 @@
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Terrain
 {
     public class NavigationGrid : MonoBehaviour
     {
-        Vector3[,] nodes;
-        bool initialized = false;
+        public int x_dim;
+        public int z_dim;
+        public Vector3[,] nodes;
+
+        public bool initialized = false;  // TODO: remove it?
 
         public void Init(Vector3[,] coords){
             nodes = new Vector3[coords.GetLength(0), coords.GetLength(1)];
@@ -15,6 +17,9 @@ namespace Terrain
                     nodes[x, z] = (coords[x, z] + coords[x + 1, z] + coords[x, z + 1] + coords[x + 1, z + 1]) / 4;
                 }
             }
+
+            x_dim = nodes.GetLength(0);
+            z_dim = nodes.GetLength(1);
             // OnDrawGizmosSelected();
             Debug.Log("initialization complete");
             initialized = true;
@@ -33,36 +38,25 @@ namespace Terrain
         {
             Vector3 floatGridCoords = worldPosition - nodes[0, 0];
             var x = Mathf.RoundToInt(floatGridCoords.x);
-            var y = Mathf.RoundToInt(floatGridCoords.z);
-            var z = Mathf.RoundToInt(floatGridCoords.z / Constants.HeightCoefficient);
-            return new Vector3Int(x, y);
+            var y = Mathf.RoundToInt(floatGridCoords.y / Constants.HeightCoefficient);
+            var z = Mathf.RoundToInt(floatGridCoords.z);
+            return new Vector3Int(x, y, z);
         }
-
-        public Vector3 GridCoordsToWorldPosition(Vector3Int GridCoords)
+        public Vector3 GridCoordsToWorldPosition(Vector3Int gridCoords)
         {
-            Vector3 worldPosition = nodes[0, 0] + GridCoords.x * Vector3.right + GridCoords.z * Vector3.forward +
-                                    Constants.HeightCoefficient * GridCoords.y * Vector3.up;
-            return worldPosition;
+//            Vector3 worldPosition = nodes[0, 0] + gridCoords.x * Vector3.right + gridCoords.z * Vector3.forward +
+//                                    Constants.HeightCoefficient * gridCoords.y * Vector3.up;
+            return GridCoordsToWorldPosition(gridCoords.x, gridCoords.y);
         }
-
-        public void Move(Transform creatureTransform, Vector3Int direction)
+        
+        public Vector3 GridCoordsToWorldPosition(int x, int y)
         {
-            Vector3 currentPosition = creatureTransform.position;
-
-            Assert.IsTrue(-1 <= direction.x && direction.x <= 1);
-            Assert.IsTrue(-1 <= direction.y && direction.y <= 1);
-            Assert.IsTrue(-1 <= direction.z && direction.z <= 1);
-            Assert.IsTrue(direction.magnitude > 0);
-
-            Vector3Int oldCoords = WorldPositionToGridCoords(currentPosition);
-            Vector3Int newCoords = oldCoords + direction;
-        
-            Assert.IsTrue(0 <= newCoords.x && newCoords.x < nodes.GetLength(0));
-            Assert.IsTrue(0 <= newCoords.y && newCoords.y < nodes.GetLength(1));
-        
-            Vector3 newPosition = nodes[newCoords.x, newCoords.y];
-            creatureTransform.Translate(newPosition - currentPosition);
+            return nodes[x, y];
         }
-    
+
+        public int GetGridHeight(Vector2Int gridCoords)
+        {
+            return WorldPositionToGridCoords(nodes[gridCoords.x, gridCoords.y]).y;
+        }
     }
 }
