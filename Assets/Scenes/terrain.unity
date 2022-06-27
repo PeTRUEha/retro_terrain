@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.3967375, g: 0.4144232, b: 0.41019934, a: 1}
+  m_IndirectSpecularColor: {r: 0.3967378, g: 0.4144231, b: 0.41019934, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -150,7 +150,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 3
+  serializedVersion: 4
   m_GIWorkflowMode: 1
   m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 0
@@ -163,7 +163,7 @@ LightingSettings:
   m_LightmapMaxSize: 512
   m_BakeResolution: 10
   m_Padding: 2
-  m_TextureCompression: 1
+  m_LightmapCompression: 3
   m_AO: 0
   m_AOMaxDistance: 1
   m_CompAOExponent: 1
@@ -204,6 +204,7 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaDirect: 0.5
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
+  m_PVRTiledBaking: 0
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,6 +294,7 @@ Transform:
   m_LocalRotation: {x: -0.14399998, y: 0.9781658, z: -0.04084739, w: 0.14417781}
   m_LocalPosition: {x: 2.07, y: 0.98, z: 10.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -377,6 +379,7 @@ Transform:
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
   m_LocalPosition: {x: 0, y: 40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -393,9 +396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02dfaf486453524ba167f5a988c66a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardTranslationSpeed: 5
+  keyboardTranslationSpeed: 7
   mouseTranslationSpeed: 0.12
-  scrollSpeed: 100
+  scrollSpeed: 500
   minCameraSize: 2
   maxCameraSize: 60
 --- !u!1001 &616683093
@@ -494,6 +497,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -524,11 +528,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1142424374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cca4419ab8b431459961bd4c2f125e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 23c2e8ccdfc294e029b284ec955f8747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainWidth: 32
-  elementWidth: 32
+  terrainWidth: 200
+  elementWidth: 20
   terrainPrefab: {fileID: 114363526940269292, guid: 778c49ec9ce13cb4bb0ffee8ef08260c,
     type: 3}
 --- !u!4 &1142424376
@@ -541,6 +545,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2

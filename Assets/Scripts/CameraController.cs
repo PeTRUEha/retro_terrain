@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 	public float keyboardTranslationSpeed = 20f;
 	public float mouseTranslationSpeed = 0.12f;
-    public float scrollSpeed = 100;
+    public float scrollSpeed = 500;
 
     public float minCameraSize;
     public float maxCameraSize;
