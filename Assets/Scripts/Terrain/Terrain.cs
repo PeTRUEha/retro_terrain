@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Terrain
 {
-    public class NavigationGrid : MonoBehaviour
+    public class Terrain : MonoBehaviour
     {
         public int x_dim;
         public int z_dim;
@@ -34,7 +34,7 @@ namespace Terrain
                 Gizmos.DrawSphere(vec3, .1f);
             }
         }
-        public Vector3Int WorldPositionToGridCoords(Vector3 worldPosition)
+        public Vector3Int WorldToMap(Vector3 worldPosition)
         {
             Vector3 floatGridCoords = worldPosition - nodes[0, 0];
             var x = Mathf.RoundToInt(floatGridCoords.x);
@@ -42,21 +42,21 @@ namespace Terrain
             var z = Mathf.RoundToInt(floatGridCoords.z);
             return new Vector3Int(x, y, z);
         }
-        public Vector3 GridCoordsToWorldPosition(Vector3Int gridCoords)
+        public Vector3 MapToWorld(Vector2Int gridCoords)
         {
 //            Vector3 worldPosition = nodes[0, 0] + gridCoords.x * Vector3.right + gridCoords.z * Vector3.forward +
 //                                    Constants.HeightCoefficient * gridCoords.y * Vector3.up;
-            return GridCoordsToWorldPosition(gridCoords.x, gridCoords.y);
+            return MapToWorld(gridCoords.x, gridCoords.y);
         }
         
-        public Vector3 GridCoordsToWorldPosition(int x, int y)
+        public Vector3 MapToWorld(int x, int y)
         {
             return nodes[x, y];
         }
 
         public int GetGridHeight(Vector2Int gridCoords)
         {
-            return WorldPositionToGridCoords(nodes[gridCoords.x, gridCoords.y]).y;
+            return WorldToMap(nodes[gridCoords.x, gridCoords.y]).y;
         }
     }
 }

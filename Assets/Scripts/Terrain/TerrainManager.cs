@@ -17,7 +17,7 @@ namespace Terrain
 			CreateCoords();
 			CreateTerrainElements();
 
-			var navGrid = FindObjectOfType<NavigationGrid>();
+			var navGrid = FindObjectOfType<Terrain>();
 			navGrid.Init(this.coords);
 		}
 

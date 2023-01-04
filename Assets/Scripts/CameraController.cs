@@ -24,9 +24,10 @@ public class CameraController : MonoBehaviour {
 
         Vector2 forward = GetForwardDirection();
         Vector2 rightward = - Vector2.Perpendicular(forward);
-		Vector2 keyboardTranslation = 
-            (Input.GetAxis("Vertical") * forward + 
-             Input.GetAxis("Horizontal") * rightward) * keyboardTranslationSpeed * Time.deltaTime * camera.orthographicSize;
+        var keyboardTranslation = new Vector2();
+		// Vector2 keyboardTranslation = 
+  //           (Input.GetAxis("Vertical") * forward + 
+  //            Input.GetAxis("Horizontal") * rightward) * keyboardTranslationSpeed * Time.deltaTime * camera.orthographicSize;
             
 
         Vector2 mouseTranslation = Vector2.zero;

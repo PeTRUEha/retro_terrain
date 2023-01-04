@@ -1,25 +1,24 @@
 ﻿using UnityEngine;
 using Terrain;
+using UnityEditor.UI;
 
 namespace Creature
 {
     public class Creature: MonoBehaviour
     {
-        public Vector3Int coords;
-        public Vector2Int FlatCoords
+        private Vector2Int _mapCoords;
+        public Vector2Int MapCoords
         {
-            get => new(coords.x, coords.z);
-            set => coords = new Vector3Int(value.x, navGrid.GetGridHeight(value), value.y);
-        } 
-
-        protected NavigationGrid navGrid;
-        // add init of coords
+            get => new (_mapCoords.x, _mapCoords.y);
+            set
+            {
+                _mapCoords = new Vector2Int(value.x, value.y);
+                //TODO: when new coordinates are set, creature must move to new coordinates on terrain
+            }
+        }
+        
         void Start()
         {
-            {
-                navGrid = GameObject.Find("NavigationGrid").GetComponent<NavigationGrid>();
-                coords = navGrid.WorldPositionToGridCoords(transform.position);
-            }
         }
     }
 }
