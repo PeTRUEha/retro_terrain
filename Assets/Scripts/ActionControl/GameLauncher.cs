@@ -23,7 +23,7 @@ namespace ActionControl
 
         private void Start()
         {
-            // TODO: create function animal.create and move it there
+            // TODO: нужно как-то инкапсулировать операции, связанные с генерацией нового существа
             var rabbit = Instantiate(rabbitPrefab, terrain.MapToWorld(2, 2), Quaternion.identity);
             rabbit.MapCoords = new Vector2Int(2, 2);
 

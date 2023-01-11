@@ -6,7 +6,7 @@ using Terrain = Landscape.Terrain;
 
 namespace Creatures
 {
-    public class Creature: MonoBehaviour
+    public abstract class Creature: MonoBehaviour
     {
         protected Vector2Int _mapCoords;
         public Terrain terrain;
@@ -27,7 +27,7 @@ namespace Creatures
                 transform.SetPositionAndRotation(worldCoords, Quaternion.identity);
             }
         }
-        
+
         void Start()
         {
         }

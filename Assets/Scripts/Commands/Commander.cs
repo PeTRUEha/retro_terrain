@@ -49,6 +49,7 @@ namespace Commands
             var destination = creature.MapCoords + command.direction;
 
             var animal = creature as Animal;
+            Debug.Log("New position: " + destination);
             animal.Move(destination);
         }
     }

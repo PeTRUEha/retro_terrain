@@ -7,11 +7,11 @@ namespace AI
 {
     public abstract class CreatureMind : MonoBehaviour
     {
-        private Creature _creature;
+        protected Creature creature;
 
         private void Awake()
         {
-            _creature = gameObject.GetComponent<Creature>();
+            creature = gameObject.GetComponent<Creature>();
         }
 
         public abstract Command GetNextAction();

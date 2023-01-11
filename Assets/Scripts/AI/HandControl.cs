@@ -8,13 +8,12 @@ namespace AI
 {
     public class HandControl : CreatureMind
     {
-        
-        private Creature _creature;
         private Vector2Int _direction = Vector2Int.zero;
 
         public override Command GetNextAction()
         {
-            var command = new MoveCommand(_creature, _direction, 10);
+            var command = new MoveCommand(creature, _direction, 10);
+            Debug.Log(_direction);
             _direction = Vector2Int.zero;
             return command;
         }
