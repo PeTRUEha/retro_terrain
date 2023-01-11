@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Terrain
+namespace Landscape
 {
 	public class TerrainManager : MonoBehaviour {
 

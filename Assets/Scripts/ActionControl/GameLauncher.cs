@@ -1,6 +1,8 @@
 ﻿using System;
-using Creature;
+using Creatures;
 using UnityEngine;
+using Terrain = Landscape.Terrain;
+using AI;
 
 namespace ActionControl
 {
@@ -8,19 +10,24 @@ namespace ActionControl
     public class GameLauncher:MonoBehaviour
     {
         public Rabbit rabbitPrefab;
-        public Creature.Creature rabbit;
-        public Terrain.Terrain terrain;
-        public CreatureMind creatureMind;
+        public Terrain terrain;
         public TurnQueue turnQueue;
         public TimeController timeController;
-        
+
+        private void Awake()
+        {
+            terrain = GameObject.Find("Terrain").GetComponent<Terrain>();
+            turnQueue = GameObject.Find("ActionControl").GetComponent<TurnQueue>();
+            timeController = GameObject.Find("ActionControl").GetComponent<TimeController>();
+        }
+
         private void Start()
         {
-            rabbit = Instantiate(rabbitPrefab, terrain.MapToWorld(2, 2), Quaternion.identity);
+            // TODO: create function animal.create and move it there
+            var rabbit = Instantiate(rabbitPrefab, terrain.MapToWorld(2, 2), Quaternion.identity);
             rabbit.MapCoords = new Vector2Int(2, 2);
-            creatureMind = rabbit.GetComponent<CreatureMind>();
-            
-            turnQueue.Push(0, rabbit, creatureMind);
+
+            turnQueue.Push(0, rabbit, rabbit.GetComponent<CreatureMind>());
         }
     }
 }

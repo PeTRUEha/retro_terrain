@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Terrain
+namespace Landscape
 {
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]

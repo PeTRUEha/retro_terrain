@@ -12,9 +12,9 @@ namespace ActionControl
         public float nextMove;
         public TurnQueue turnQueue;
 
-        public TimeController(TurnQueue turnQueue)
+        private void Awake()
         {
-            this.turnQueue = turnQueue;
+            turnQueue = GameObject.Find("ActionControl").GetComponent<TurnQueue>();
         }
 
         public void Update()

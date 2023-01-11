@@ -3,20 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
-using Creature;
+using Creatures;
 using C5;
 using Commands;
+using AI;
 
 namespace ActionControl
 {
     public class TurnQueue : MonoBehaviour
     {
-        public IntervalHeap<Tuple<float, Creature.Creature, CreatureMind>> _queue;
-        public Commander _commander;
+        [SerializeField]
+        private IntervalHeap<Tuple<float, Creature, CreatureMind>> queue;
+        public Commander commander;
+
+        private void Awake()
+        {
+            commander = GameObject.Find("ActionControl").GetComponent<Commander>();
+        }
 
         public TurnQueue()
         {
-            _queue = new IntervalHeap<Tuple<float, Creature.Creature, CreatureMind>>();
+            queue = new IntervalHeap<Tuple<float, Creatures.Creature, CreatureMind>>();
         }
         void Start()
         {
@@ -30,18 +37,18 @@ namespace ActionControl
             // }
         }
 
-        public void Push(float time, Creature.Creature creature, CreatureMind creatureMind)
+        public void Push(float time, Creatures.Creature creature, CreatureMind creatureMind)
         {
-            _queue.Add(new Tuple<float, Creature.Creature, CreatureMind>(time, creature, creatureMind));
+            queue.Add(new Tuple<float, Creatures.Creature, CreatureMind>(time, creature, creatureMind));
         }
 
         public void RunNextTurn()
         {
-            var (time, creature, creatureMind) = _queue.DeleteMin();
+            var (time, creature, creatureMind) = queue.DeleteMin();
             var command = creatureMind.GetNextAction();
             
-            _commander.ExecuteCommand(creature, command);
-            _queue.Add(new Tuple<float, Creature.Creature, CreatureMind>(time + 1, creature, creatureMind));
+            commander.ExecuteCommand(creature, command);
+            queue.Add(new Tuple<float, Creatures.Creature, CreatureMind>(time + 1, creature, creatureMind));
         }
         // Update is called once per frame
         void Update()
