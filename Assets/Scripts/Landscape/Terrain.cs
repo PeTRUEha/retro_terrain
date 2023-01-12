@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Landscape
@@ -13,8 +14,13 @@ namespace Landscape
         public void Init(Vector3[,] coords){
             nodes = new Vector3[coords.GetLength(0), coords.GetLength(1)];
             for (int x = 0; x < coords.GetLength(0) - 1; x++){
-                for (int z = 0; z < coords.GetLength(1) - 1; z++){
-                    nodes[x, z] = (coords[x, z] + coords[x + 1, z] + coords[x, z + 1] + coords[x + 1, z + 1]) / 4;
+                for (int z = 0; z < coords.GetLength(1) - 1; z++)
+                {
+                    var surroundingCoords = new List<Vector3>
+                    {
+                        coords[x, z], coords[x + 1, z], coords[x, z + 1], coords[x + 1, z + 1]
+                    };
+                    nodes[x, z] = Utils.Math.Median(surroundingCoords);
                 }
             }
 
