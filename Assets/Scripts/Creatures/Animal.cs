@@ -12,13 +12,13 @@ namespace Creatures
         /// </summary>
         public void Move(Vector2Int destination)
         {
-            _mapCoords = destination;
+            MapCoords = destination;
             Vector3 newPosition = terrain.MapToWorld(_mapCoords.x, _mapCoords.y);
 
             Quaternion rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             StartCoroutine(Movement.MoveObject(transform, newPosition, rotation));
             // transform.Translate(newPosition - transform.position);
-
+            map.PrintContents();
         }
         // Update is called once per frame
         

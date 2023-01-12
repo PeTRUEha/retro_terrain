@@ -12,7 +12,7 @@ namespace Commands
         /// <summary>
         /// Валидирует и выпонляет команды, поступающие существам.
         /// </summary>
-        public Landscape.Terrain terrain;
+        public Landscape.Terrain terrain; //TODO: replace with Map
 
         private void Awake()
         {
