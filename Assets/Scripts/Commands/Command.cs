@@ -18,6 +18,18 @@ namespace Commands
         public Vector2Int direction;
         public float cost;
     }
+    
+    public class WaitCommand: Command
+    {
+        public WaitCommand(Creatures.Creature creature, float cost)
+        {
+            this.creature = creature;
+            this.cost = cost;
+        }
+        public Creatures.Creature creature; //TODO: use interface instead of class
+        public Vector2Int direction;
+        public float cost;
+    }
 
 }
 

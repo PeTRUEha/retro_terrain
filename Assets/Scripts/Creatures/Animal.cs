@@ -12,10 +12,6 @@ namespace Creatures
         /// </summary>
         public void Move(Vector2Int destination)
         {
-            if (_mapCoords == destination)
-            {
-                return;
-            }
             _mapCoords = destination;
             Vector3 newPosition = terrain.MapToWorld(_mapCoords.x, _mapCoords.y);
 

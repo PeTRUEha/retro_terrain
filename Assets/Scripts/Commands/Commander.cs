@@ -21,11 +21,14 @@ namespace Commands
 
         public void ExecuteCommand(Creature creature, Command command)
         {
-            if (command is MoveCommand)
+            if (command is MoveCommand moveCommand)
             {
-                var moveCommand = (MoveCommand)command;
                 ValidateMoveCommand(creature, moveCommand);
                 ExecuteMoveCommand(creature, moveCommand);
+            }
+            else if (command is WaitCommand waitCommand)
+            {
+                ExecuteWaitCommand(creature, waitCommand);
             }
             
         }
@@ -37,7 +40,7 @@ namespace Commands
             
             Assert.IsTrue(command.direction.x is >= -1 and <= 1);
             Assert.IsTrue(command.direction.y is >= -1 and <= 1);
-            // Assert.IsTrue(command.direction.magnitude > 0);
+            Assert.IsTrue(command.direction.magnitude > 0);
             
             var newMapCoords = creature.MapCoords + command.direction;
             Assert.IsTrue(0 <= newMapCoords.x && newMapCoords.x < terrain.x_dim);
@@ -49,8 +52,12 @@ namespace Commands
             var destination = creature.MapCoords + command.direction;
 
             var animal = creature as Animal;
-            Debug.Log("New position: " + destination);
             animal.Move(destination);
+        }
+
+        private void ExecuteWaitCommand(Creature creature, WaitCommand command)
+        {
+            return;
         }
     }
 }

@@ -12,8 +12,17 @@ namespace AI
 
         public override Command GetNextAction()
         {
-            var command = new MoveCommand(creature, _direction, 10);
-            Debug.Log(_direction);
+            Command command;
+            if (_direction != Vector2Int.zero)
+            {
+                //TODO: стоимость команды должна определяться не в модуле ИИ и должна зависить от статов и состояния
+                // существа
+                command = new MoveCommand(creature, _direction, 10);
+            }
+            else
+            {
+                command = new WaitCommand(creature, 10);
+            }
             _direction = Vector2Int.zero;
             return command;
         }
