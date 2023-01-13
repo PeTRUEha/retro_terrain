@@ -10,7 +10,7 @@ namespace Navigation
     public class Map: MonoBehaviour
     {
         public int xDim;
-        public int zDim;
+        public int yDim;
         public Terrain terrain;
         public Creature[,] ground;
         
@@ -22,15 +22,33 @@ namespace Navigation
         private void Start()
         {
             xDim = terrain.x_dim;
-            zDim = terrain.z_dim;
-            ground = new Creature[xDim, zDim];
+            yDim = terrain.z_dim;
+            ground = new Creature[xDim, yDim];
+        }
+
+        public bool IsGroundVacant(Vector2Int coords)
+        {
+            if (AreCoordsInBounds(coords) && ground[coords.x, coords.y] == null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool AreCoordsInBounds(Vector2Int coords)
+        {
+            if (coords.x >= 0 && coords.x < xDim && coords.y >= 0 && coords.y < yDim)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void PrintContents()
         {
             for(var i=0; i < xDim; i++)
             {
-                for (var j = 0; j < zDim; j++)
+                for (var j = 0; j < yDim; j++)
                 {
                     if (ground[i, j] != null)
                     {

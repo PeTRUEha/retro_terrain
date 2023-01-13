@@ -1,6 +1,7 @@
 ﻿using System;
 using Creatures;
 using Landscape;
+using Navigation;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -12,11 +13,11 @@ namespace Commands
         /// <summary>
         /// Валидирует и выпонляет команды, поступающие существам.
         /// </summary>
-        public Landscape.Terrain terrain; //TODO: replace with Map
+        public Map map;
 
         private void Awake()
         {
-            terrain = GameObject.Find("Terrain").GetComponent<Landscape.Terrain>();
+            map = GameObject.Find("Navigation").GetComponent<Map>();
         }
 
         public void ExecuteCommand(Creature creature, Command command)
@@ -43,8 +44,7 @@ namespace Commands
             Assert.IsTrue(command.direction.magnitude > 0);
             
             var newMapCoords = creature.MapCoords + command.direction;
-            Assert.IsTrue(0 <= newMapCoords.x && newMapCoords.x < terrain.x_dim);
-            Assert.IsTrue(0 <= newMapCoords.y && newMapCoords.y < terrain.z_dim);
+            map.IsGroundVacant(newMapCoords);
         }
 
         private void ExecuteMoveCommand(Creatures.Creature creature, MoveCommand command)

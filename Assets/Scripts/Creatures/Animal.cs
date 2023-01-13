@@ -18,7 +18,7 @@ namespace Creatures
             Quaternion rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
             StartCoroutine(Movement.MoveObject(transform, newPosition, rotation));
             // transform.Translate(newPosition - transform.position);
-            map.PrintContents();
+            // map.PrintContents();
         }
         // Update is called once per frame
         

@@ -3,6 +3,7 @@ using UnityEngine;
 using Landscape;
 using Navigation;
 using UnityEditor.UI;
+using UnityEngine.Assertions;
 using Terrain = Landscape.Terrain;
 
 namespace Creatures
@@ -19,6 +20,12 @@ namespace Creatures
             map = GameObject.Find("Navigation").GetComponent<Map>();
         }
 
+        public void Init(Vector2Int coords)
+        {
+            _mapCoords = coords;
+            RegisterOnMap();
+        }
+        
         protected void RegisterOnMap()
         {
             map.ground[_mapCoords.x, _mapCoords.y] = this;
@@ -37,6 +44,7 @@ namespace Creatures
             {
                 UnregisterOnMap();
                 _mapCoords = new Vector2Int(value.x, value.y);
+                Assert.IsTrue(map.IsGroundVacant(_mapCoords));
                 // var worldCoords = terrain.MapToWorld(_mapCoords);
                 // transform.SetPositionAndRotation(worldCoords, Quaternion.identity);
                 RegisterOnMap();
