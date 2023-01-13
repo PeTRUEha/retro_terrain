@@ -7,6 +7,8 @@ using Creatures;
 using C5;
 using Commands;
 using AI;
+using UnityEngine.Assertions;
+using Utils;
 
 namespace ActionControl
 {
@@ -23,7 +25,8 @@ namespace ActionControl
 
         public TurnQueue()
         {
-            queue = new IntervalHeap<Tuple<float, Creatures.Creature, CreatureMind>>();
+            queue = new IntervalHeap<Tuple<float, Creature, CreatureMind>>(
+                new PriorityCompare<Creature,CreatureMind>());
         }
         void Start()
         {
@@ -45,6 +48,7 @@ namespace ActionControl
         public void RunNextTurn()
         {
             var (time, creature, creatureMind) = queue.DeleteMin();
+            Debug.Log($"{time}, {creature}");
             var command = creatureMind.GetNextAction();
             
             commander.ExecuteCommand(creature, command);

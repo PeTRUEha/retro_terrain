@@ -20,7 +20,7 @@ namespace Factories
         public Rabbit CreateRabbit(Vector2Int coords)
         {
             var rabbit = Instantiate(rabbitPrefab, terrain.MapToWorld(coords), Quaternion.identity);
-            transform.SetParent(GameObject.Find("Creatures").transform);
+            rabbit.transform.SetParent(GameObject.Find("Creatures").transform);
             rabbit.Init(coords);
             return rabbit;
         }
