@@ -19,7 +19,7 @@ namespace ActionControl
 
         public void Update()
         {
-            if (Time.time > nextMove)
+            if (Time.time > turnQueue.NextTurnTime)
             {
                 turnQueue.RunNextTurn();
                 nextMove = Time.time + 1;

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 using Creatures;
 using C5;
@@ -18,6 +18,12 @@ namespace ActionControl
         private IntervalHeap<Tuple<float, Creature, CreatureMind>> queue;
         public Commander commander;
 
+        private float _nextTurnTime = 0;
+        public float NextTurnTime
+        {
+            get => _nextTurnTime;
+        }
+        
         private void Awake()
         {
             commander = GameObject.Find("ActionControl").GetComponent<Commander>();
@@ -44,7 +50,7 @@ namespace ActionControl
         {
             queue.Add(new Tuple<float, Creatures.Creature, CreatureMind>(time, creature, creatureMind));
         }
-
+        
         public void RunNextTurn()
         {
             var (time, creature, creatureMind) = queue.DeleteMin();
@@ -53,6 +59,7 @@ namespace ActionControl
             
             commander.ExecuteCommand(creature, command);
             queue.Add(new Tuple<float, Creatures.Creature, CreatureMind>(time + 1, creature, creatureMind));
+            _nextTurnTime = queue.FindMin().Item1;
         }
         // Update is called once per frame
         void Update()

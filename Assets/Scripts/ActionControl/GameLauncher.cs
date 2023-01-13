@@ -28,7 +28,6 @@ namespace ActionControl
                 for (var j = 0; j < 4; j++)
                 {
                     var rabbit = creatureFactory.CreateRabbit(new Vector2Int(i, j));
-                    turnQueue.Push(0, rabbit, rabbit.GetComponent<CreatureMind>());
                 }
 
         }

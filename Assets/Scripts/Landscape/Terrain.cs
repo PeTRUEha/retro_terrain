@@ -31,15 +31,15 @@ namespace Landscape
             initialized = true;
         }
     
-        void OnDrawGizmos()
-        {
-            if (!initialized) return;
-            foreach(Vector3 vec3 in nodes)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(vec3, .1f);
-            }
-        }
+        // void OnDrawGizmos()
+        // {
+        //     if (!initialized) return;
+        //     foreach(Vector3 vec3 in nodes)
+        //     {
+        //         Gizmos.color = Color.red;
+        //         Gizmos.DrawSphere(vec3, .1f);
+        //     }
+        // }
         public Vector3Int WorldToMap(Vector3 worldPosition)
         {
             Vector3 floatGridCoords = worldPosition - nodes[0, 0];
