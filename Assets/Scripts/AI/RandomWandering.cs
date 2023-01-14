@@ -34,7 +34,7 @@ namespace AI
                     var direction = new Vector2Int(i, j);
                     if (direction == Vector2Int.zero)
                         continue;
-                    if (map.IsGroundVacant(currentPosition + direction))
+                    if (map.IsWalkableAndVacant(currentPosition + direction))
                        availableDirections.Add(direction); 
                 }
             var rnd = new Random();

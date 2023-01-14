@@ -19,11 +19,12 @@ namespace Landscape
 
         static Color VertexColor(float height)
         {
-            if(height < 1.5)
+            //Каким-то образом это влияет на текстуру поверхности
+            if(height < 0.5)
             {
                 return Color.black;
             }
-            else if(height < 3.5)
+            else if(height < 2.5)
             {
                 return Color.red;
             }
@@ -41,7 +42,7 @@ namespace Landscape
             int width = TerrainManager.instance.elementWidth;
 
             //setting the water position
-            this.transform.GetChild(0).transform.position = new Vector3(index_x * width + width /2,1.1f,index_z * width + width /2);
+            this.transform.GetChild(0).transform.position = new Vector3(index_x * width + width /2,Constants.WaterLevel -0.25f,index_z * width + width /2);
 
             meshFilter = this.GetComponent<MeshFilter>();
             mesh = new Mesh();

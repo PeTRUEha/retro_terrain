@@ -44,7 +44,7 @@ namespace Creatures
             {
                 UnregisterOnMap();
                 _mapCoords = new Vector2Int(value.x, value.y);
-                Assert.IsTrue(map.IsGroundVacant(_mapCoords));
+                Assert.IsTrue(map.IsWalkableAndVacant(_mapCoords));
                 // var worldCoords = terrain.MapToWorld(_mapCoords);
                 // transform.SetPositionAndRotation(worldCoords, Quaternion.identity);
                 RegisterOnMap();

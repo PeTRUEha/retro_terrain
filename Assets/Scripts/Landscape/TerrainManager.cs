@@ -37,12 +37,19 @@ namespace Landscape
                 setting height value based on perlin noise
                 needs to be optimized low, mid and high frequency noise
                 */
-					float y = Mathf.PerlinNoise((float)x / 20, (float)z / 20) * 10; // TODO: remove magic constants
-					y = Mathf.Floor(y) * Constants.HeightCoefficient;
+					var y = GetWorldHeight(x, z);
 					coords[x, z] = new Vector3(x, y, z);
 				} 
 			}
 
+		}
+
+		private static float GetWorldHeight(int x, int z)
+		{
+			float y = (Mathf.PerlinNoise((float)x / 20, (float)z / 20) - Constants.SubmergedArea) *
+			          10; // TODO: remove magic constants
+			y = Mathf.Floor(y) * Constants.HeightCoefficient;
+			return y;
 		}
 
 		void CreateTerrainElements()

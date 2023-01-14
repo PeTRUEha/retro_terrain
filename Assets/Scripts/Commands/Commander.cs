@@ -44,7 +44,7 @@ namespace Commands
             Assert.IsTrue(command.direction.magnitude > 0);
             
             var newMapCoords = creature.MapCoords + command.direction;
-            map.IsGroundVacant(newMapCoords);
+            Assert.IsTrue(map.IsWalkableAndVacant(newMapCoords));
         }
 
         private void ExecuteMoveCommand(Creatures.Creature creature, MoveCommand command)

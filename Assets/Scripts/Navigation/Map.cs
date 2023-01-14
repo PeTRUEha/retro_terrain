@@ -26,6 +26,11 @@ namespace Navigation
             ground = new Creature[xDim, yDim];
         }
 
+        public bool IsWalkableAndVacant(Vector2Int coords)
+        {
+            return IsGroundVacant(coords) && terrain.GetMapHeight(coords) >= 0;
+        }
+
         public bool IsGroundVacant(Vector2Int coords)
         {
             if (AreCoordsInBounds(coords) && ground[coords.x, coords.y] == null)

@@ -27,7 +27,6 @@ namespace Landscape
             x_dim = nodes.GetLength(0);
             z_dim = nodes.GetLength(1);
             // OnDrawGizmosSelected();
-            Debug.Log("initialization complete");
             initialized = true;
         }
     
@@ -42,10 +41,12 @@ namespace Landscape
         // }
         public Vector3Int WorldToMap(Vector3 worldPosition)
         {
-            Vector3 floatGridCoords = worldPosition - nodes[0, 0];
+            Vector3 floatGridCoords = worldPosition;
+            // Debug.Log(floatGridCoords);
             var x = Mathf.RoundToInt(floatGridCoords.x);
-            var y = Mathf.RoundToInt(floatGridCoords.y / Constants.HeightCoefficient);
+            var y = Mathf.RoundToInt(floatGridCoords.y / Constants.HeightCoefficient * 2);
             var z = Mathf.RoundToInt(floatGridCoords.z);
+            // Debug.Log(new Vector3Int(x, y, z));
             return new Vector3Int(x, y, z);
         }
         public Vector3 MapToWorld(Vector2Int gridCoords)
@@ -60,9 +61,9 @@ namespace Landscape
             return nodes[x, y];
         }
 
-        public int GetGridHeight(Vector2Int gridCoords)
+        public int GetMapHeight(Vector2Int mapCoords)
         {
-            return WorldToMap(nodes[gridCoords.x, gridCoords.y]).y;
+            return WorldToMap(nodes[mapCoords.x, mapCoords.y]).y;
         }
     }
 }
