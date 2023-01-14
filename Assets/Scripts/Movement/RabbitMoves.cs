@@ -2,15 +2,20 @@
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace Utils
+namespace Movement
 {
-    public class Movement
+    public class RabbitMoves: Moves
     {
         // TODO: movement should be dependent on terrain, while Creature should be made independent of it.
-        public static IEnumerator MoveObject(Transform transform, Vector3 targetPosition, Quaternion targetRotation) {
-            float totalMovementTime = 1f; //the amount of time you want the movement to take
-            float totalRotationTime = 0.25f;
-            float jumpHeight = 0.75f;
+        public new float totalMovementTime = 1f;
+        public new float totalRotationTime = 0.25f;
+
+        public float JumpHeight
+        {
+            get => totalMovementTime / Constants.TimeToHeightCoefficient;
+        }
+
+        public IEnumerator Jump(Transform transform, Vector3 targetPosition, Quaternion targetRotation) {
             float currentMovementTime = 0f; //The amount of time that has passed
             var startPosition = transform.position;
             var startRotation = transform.rotation;
@@ -18,7 +23,7 @@ namespace Utils
                 currentMovementTime += Time.deltaTime;
                 transform.position =
                     Vector3.Lerp(startPosition, targetPosition, currentMovementTime / totalMovementTime)
-                    + Vector3.up * Height(jumpHeight, currentMovementTime / totalMovementTime);
+                    + Vector3.up * Height(JumpHeight, currentMovementTime / totalMovementTime);
                 
                 transform.rotation = Quaternion.Slerp(startRotation, targetRotation,  currentMovementTime / totalRotationTime);
                 

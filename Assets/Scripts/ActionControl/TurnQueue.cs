@@ -54,7 +54,7 @@ namespace ActionControl
         public void RunNextTurn()
         {
             var (time, creature, creatureMind) = queue.DeleteMin();
-            Debug.Log($"{time}, {creature}");
+            // Debug.Log($"{time}, {creature}");
             var command = creatureMind.GetNextAction();
             
             commander.ExecuteCommand(creature, command);
