@@ -25,7 +25,7 @@ namespace Factories
         {
             var rabbit = Instantiate(rabbitPrefab, terrain.MapToWorld(coords), Quaternion.identity);
             rabbit.transform.SetParent(GameObject.Find("Creatures").transform);
-            turnQueue.Push(Time.time + Random.value * 0.5f, rabbit, rabbit.GetComponent<CreatureMind>());
+            turnQueue.Push(Time.time + Random.value * 1f, rabbit, rabbit.GetComponent<CreatureMind>());
             rabbit.Init(coords);
             return rabbit;
         }

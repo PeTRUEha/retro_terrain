@@ -5,14 +5,16 @@ namespace Creatures
 {
     public class Rabbit : Animal
     {
-        public RabbitMoves moves = new();
+        public new RabbitMoveset moveset;
+
+        private void Start()
+        {
+            moveset = gameObject.AddComponent<RabbitMoveset>();
+        }
         public override void Move(Vector2Int destination)
         {
+            StartCoroutine(moveset.Jump(MapCoords, destination));
             MapCoords = destination;
-            Vector3 newPosition = terrain.MapToWorld(_mapCoords.x, _mapCoords.y);
-
-            Quaternion rotation = Quaternion.LookRotation(newPosition - transform.position, Vector3.up);
-            StartCoroutine(moves.Jump(transform, newPosition, rotation));
         }
 
     }

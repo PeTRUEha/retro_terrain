@@ -24,8 +24,8 @@ namespace ActionControl
 
         private void Start()
         {
-            for (var i = 0; i < 4; i++)
-                for (var j = 0; j < 4; j++)
+            for (var i = 28; i < 33; i++)
+                for (var j = 28; j < 33; j++)
                 {
                     var rabbit = creatureFactory.CreateRabbit(new Vector2Int(i, j));
                 }

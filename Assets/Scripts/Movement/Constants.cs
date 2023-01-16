@@ -2,6 +2,6 @@
 {
     public struct Constants
     {
-        public const float TimeToHeightCoefficient = 1.33f; // T = k * sqrt(h)
+        public const float TimeToHeightCoefficient = 0.5f; // T = k * sqrt(h)
     }
 }

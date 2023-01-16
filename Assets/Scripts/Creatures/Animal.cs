@@ -1,3 +1,4 @@
+using System;
 using Landscape;
 using Movement;
 using UnityEngine;
@@ -11,7 +12,8 @@ namespace Creatures
         /// <summary>
         /// Responsible for physical aspects of an animal: movement, HP, hunger etc.
         /// </summary>
-        private Moves moves;
+        [NonSerialized]
+        public Moveset moveset;
 
         public abstract void Move(Vector2Int destination);
     }
