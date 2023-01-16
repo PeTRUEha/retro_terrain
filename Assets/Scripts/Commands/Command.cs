@@ -18,8 +18,6 @@ namespace Commands
             this.direction = direction;
             this.duration = duration;
         }
-
-
     }
     
     public class WaitCommand: Command
@@ -27,6 +25,17 @@ namespace Commands
         public WaitCommand(Creature creature, float duration)
         {
             this.creature = creature;
+            this.duration = duration;
+        }
+    }
+
+    public class BackflipCommand : Command
+    {
+        public Vector2Int direction;
+        public BackflipCommand(Creature creature, Vector2Int direction, float duration)
+        {
+            this.creature = creature;
+            this.direction = direction;
             this.duration = duration;
         }
     }

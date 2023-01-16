@@ -13,7 +13,15 @@ namespace Creatures
         }
         public override void Move(Vector2Int destination, float duration)
         {
+            faceDirection = destination - MapCoords;
             StartCoroutine(moveset.Jump(MapCoords, destination, duration));
+            MapCoords = destination;
+        }
+
+        public void Backflip(Vector2Int destination, float duration)
+        {
+            faceDirection = MapCoords - destination;
+            StartCoroutine(moveset.Backflip(MapCoords, destination, duration));
             MapCoords = destination;
         }
 

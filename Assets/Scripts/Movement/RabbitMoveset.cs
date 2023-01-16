@@ -12,7 +12,8 @@ namespace Movement
 
         public static float JumpHeight(float jumpTime)
         {
-            return jumpTime / Constants.TimeToHeightCoefficient;
+            // TODO: проверить вычисления, почему-то высоко прыгающий кролик а
+            return jumpTime * jumpTime / Constants.TimeToHeightCoefficient;
         }
 
         public IEnumerator Jump(Vector2Int startCoords, Vector2Int targetCoords, float movementDuration)
@@ -55,12 +56,13 @@ namespace Movement
             float currentMovementTime = 0f; //The amount of time that has passed
 
             while (currentMovementTime < movementDuration) {
-                currentMovementTime += Time.deltaTime;
+                var deltaTime = Time.deltaTime;
+                currentMovementTime += deltaTime;
                 transform.position =
                     Vector3.Lerp(startPosition, targetPosition, currentMovementTime / movementDuration)
                     + Vector3.up * Height(maxJumpHeight, currentMovementTime / movementDuration);
                 
-                transform.Rotate(360 * currentMovementTime/movementDuration, 0, 0, Space.Self);
+                transform.Rotate(360 * deltaTime/movementDuration, 0, 0, Space.Self);
 
                 yield return null;
             }

@@ -7,13 +7,24 @@ using UnityEditor;
 using Random = System.Random;
 namespace AI
 {
-    public class RandomWandering: CreatureMind
+    public class RabbitRandomWandering: CreatureMind
     {
+        protected new Rabbit creature;
+
+        private void Start()
+        {
+            //TODO: call parent class awake instead of using start here
+            creature = gameObject.GetComponent<Rabbit>();
+        }
 
         public override Command GetNextAction()
         {
             var direction = GetRandomDirection(creature.MapCoords);
             Command command;
+            if (direction + creature.faceDirection == Vector2Int.zero)
+            {
+                return new BackflipCommand(creature, direction, 1.5f);
+            }
             if (direction != Vector2Int.zero)
             {
                 command = new MoveCommand(creature, direction, 1);

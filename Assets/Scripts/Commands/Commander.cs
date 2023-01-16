@@ -22,10 +22,17 @@ namespace Commands
 
         public void ExecuteCommand(Creature creature, Command command)
         {
+            // TODO: reform this class. It will be to large with all the commands
             if (command is MoveCommand moveCommand)
             {
                 ValidateMoveCommand(creature, moveCommand);
                 ExecuteMoveCommand(creature, moveCommand);
+            }
+
+            if (command is BackflipCommand backflipCommand)
+            {
+                ValidateBackflipCommand(creature, backflipCommand);
+                ExecuteBackflipCommand(creature, backflipCommand);
             }
             else if (command is WaitCommand waitCommand)
             {
@@ -58,6 +65,25 @@ namespace Commands
         private void ExecuteWaitCommand(Creature creature, WaitCommand command)
         {
             return;
+        }
+        
+        private void ValidateBackflipCommand(Creature creature, BackflipCommand command)
+        {
+            // TODO: убрать хардкод на кролика
+            Assert.IsTrue(creature is Rabbit);            
+            
+            Assert.IsTrue(command.direction.magnitude > 0);
+            
+            var newMapCoords = creature.MapCoords + command.direction;
+            Assert.IsTrue(map.IsWalkableAndVacant(newMapCoords));
+        }
+        
+        private void ExecuteBackflipCommand(Creature creature, BackflipCommand command)
+        {
+            var destination = creature.MapCoords + command.direction;
+
+            var animal = creature as Rabbit;
+            animal.Backflip(destination, command.duration);
         }
     }
 }
