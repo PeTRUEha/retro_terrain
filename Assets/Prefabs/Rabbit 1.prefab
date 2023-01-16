@@ -784,6 +784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrain: {fileID: 0}
   map: {fileID: 0}
+  moveset: {fileID: 0}
 --- !u!114 &-6168512485840153648
 MonoBehaviour:
   m_ObjectHideFlags: 0
