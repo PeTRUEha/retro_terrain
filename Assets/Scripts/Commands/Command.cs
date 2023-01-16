@@ -1,34 +1,34 @@
-﻿using UnityEngine;
+﻿using Creatures;
+using UnityEngine;
 
 namespace Commands
 {
     public class Command
     {
+        public Creature creature; // TODO: remove creature?
+        public float duration;
     }
 
     public class MoveCommand: Command
     {
-        public MoveCommand(Creatures.Creature creature, Vector2Int direction, float cost)
+        public Vector2Int direction;
+        public MoveCommand(Creature creature, Vector2Int direction, float duration)
         {
             this.creature = creature;
             this.direction = direction;
-            this.cost = cost;
+            this.duration = duration;
         }
-        public Creatures.Creature creature; //TODO: use interface instead of class
-        public Vector2Int direction;
-        public float cost;
+
+
     }
     
     public class WaitCommand: Command
     {
-        public WaitCommand(Creatures.Creature creature, float cost)
+        public WaitCommand(Creature creature, float duration)
         {
             this.creature = creature;
-            this.cost = cost;
+            this.duration = duration;
         }
-        public Creatures.Creature creature; //TODO: use interface instead of class
-        public Vector2Int direction;
-        public float cost;
     }
 
 }

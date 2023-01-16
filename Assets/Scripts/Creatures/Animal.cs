@@ -15,6 +15,6 @@ namespace Creatures
         [NonSerialized]
         public Moveset moveset;
 
-        public abstract void Move(Vector2Int destination);
+        public abstract void Move(Vector2Int destination, float duration);
     }
 }

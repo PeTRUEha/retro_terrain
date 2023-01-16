@@ -11,9 +11,9 @@ namespace Creatures
         {
             moveset = gameObject.AddComponent<RabbitMoveset>();
         }
-        public override void Move(Vector2Int destination)
+        public override void Move(Vector2Int destination, float duration)
         {
-            StartCoroutine(moveset.Jump(MapCoords, destination));
+            StartCoroutine(moveset.Jump(MapCoords, destination, duration));
             MapCoords = destination;
         }
 

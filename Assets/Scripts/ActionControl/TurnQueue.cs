@@ -58,7 +58,7 @@ namespace ActionControl
             var command = creatureMind.GetNextAction();
             
             commander.ExecuteCommand(creature, command);
-            queue.Add(new Tuple<float, Creatures.Creature, CreatureMind>(time + 1, creature, creatureMind));
+            queue.Add(new Tuple<float, Creatures.Creature, CreatureMind>(time + command.duration, creature, creatureMind));
             _nextTurnTime = queue.FindMin().Item1;
         }
         // Update is called once per frame

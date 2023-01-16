@@ -52,7 +52,7 @@ namespace Commands
             var destination = creature.MapCoords + command.direction;
 
             var animal = creature as Animal;
-            animal.Move(destination);
+            animal.Move(destination, command.duration);
         }
 
         private void ExecuteWaitCommand(Creature creature, WaitCommand command)

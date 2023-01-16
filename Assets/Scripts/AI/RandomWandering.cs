@@ -16,13 +16,13 @@ namespace AI
             Command command;
             if (direction != Vector2Int.zero)
             {
-                command = new MoveCommand(creature, direction, 10);
+                command = new MoveCommand(creature, direction, 1);
+                // TODO: duration must be determined externally. Maybe make it in Command as a property.
             }
             else
             {
-                command = new WaitCommand(creature, 10);
+                command = new WaitCommand(creature, 1);
             }
-            direction = Vector2Int.zero;
             return command;
         }
         private Vector2Int GetRandomDirection(Vector2Int currentPosition)
