@@ -508,7 +508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrain: {fileID: 0}
   turnQueue: {fileID: 0}
-  rabbitPrefab: {fileID: -8346338094738964871, guid: c737dd230724d61469e1c672cf47ed9e,
+  rabbitPrefab: {fileID: -8346338094738964871, guid: 0b3e117600b9074489bf3ad4ddd44642,
     type: 3}
 --- !u!4 &1181401374
 Transform:
