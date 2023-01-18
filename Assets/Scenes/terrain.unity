@@ -583,7 +583,6 @@ GameObject:
   - component: {fileID: 1620163348}
   - component: {fileID: 1620163346}
   - component: {fileID: 1620163345}
-  - component: {fileID: 1620163344}
   - component: {fileID: 1620163343}
   m_Layer: 0
   m_Name: ActionControl
@@ -606,19 +605,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextMove: 0
   turnQueue: {fileID: 1620163345}
---- !u!114 &1620163344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620163342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c39c1f8cef643bebb993f4b820c2ae1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  map: {fileID: 0}
 --- !u!114 &1620163345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,7 +617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa59807d37031e428540450cfc95234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commander: {fileID: 0}
 --- !u!114 &1620163346
 MonoBehaviour:
   m_ObjectHideFlags: 0

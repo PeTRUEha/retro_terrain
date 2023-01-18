@@ -1,44 +1,23 @@
 ﻿using Creatures;
+using Navigation;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Commands
 {
-    public class Command
+    public abstract class Command
     {
-        public Creature creature; // TODO: remove creature?
+        protected static readonly Map Map = GameObject.Find("Navigation").GetComponent<Map>();
+        public Creature creature;
         public float duration;
-    }
+        public abstract void Validate();
+        public abstract void Execute();
 
-    public class MoveCommand: Command
-    {
-        public Vector2Int direction;
-        public MoveCommand(Creature creature, Vector2Int direction, float duration)
+        public void ValidateAndExecute()
         {
-            this.creature = creature;
-            this.direction = direction;
-            this.duration = duration;
+            Validate();
+            Execute();
         }
     }
-    
-    public class WaitCommand: Command
-    {
-        public WaitCommand(Creature creature, float duration)
-        {
-            this.creature = creature;
-            this.duration = duration;
-        }
-    }
-
-    public class BackflipCommand : Command
-    {
-        public Vector2Int direction;
-        public BackflipCommand(Creature creature, Vector2Int direction, float duration)
-        {
-            this.creature = creature;
-            this.direction = direction;
-            this.duration = duration;
-        }
-    }
-
 }
 

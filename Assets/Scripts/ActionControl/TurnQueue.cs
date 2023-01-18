@@ -16,7 +16,6 @@ namespace ActionControl
     {
         [SerializeField]
         private IntervalHeap<Tuple<float, Creature, CreatureMind>> queue;
-        public Commander commander;
 
         private float _nextTurnTime = 0;
         public float NextTurnTime
@@ -26,7 +25,6 @@ namespace ActionControl
         
         private void Awake()
         {
-            commander = GameObject.Find("ActionControl").GetComponent<Commander>();
         }
 
         public TurnQueue()
@@ -57,7 +55,7 @@ namespace ActionControl
             // Debug.Log($"{time}, {creature}");
             var command = creatureMind.GetNextAction();
             
-            commander.ExecuteCommand(creature, command);
+            command.ValidateAndExecute();
             queue.Add(new Tuple<float, Creatures.Creature, CreatureMind>(time + command.duration, creature, creatureMind));
             _nextTurnTime = queue.FindMin().Item1;
         }
