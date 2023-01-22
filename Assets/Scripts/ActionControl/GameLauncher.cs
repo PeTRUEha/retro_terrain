@@ -30,7 +30,7 @@ namespace ActionControl
             //         var rabbit = creatureFactory.CreateRabbit(new Vector2Int(i, j));
             //     }
             creatureFactory.CreateRabbitInHat(new Vector2Int(60, 60));
-            creatureFactory.CreateRabbit(new Vector2Int(61, 61));
+            // creatureFactory.CreateRabbit(new Vector2Int(61, 61));
         }
     }
 }

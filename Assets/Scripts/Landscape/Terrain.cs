@@ -39,6 +39,8 @@ namespace Landscape
         //         Gizmos.DrawSphere(vec3, .1f);
         //     }
         // }
+        
+        // TODO create separate class mapCoords that will be able to transfer coordinates back and forth
         public Vector3Int WorldToMap(Vector3 worldPosition)
         {
             Vector3 floatGridCoords = worldPosition;

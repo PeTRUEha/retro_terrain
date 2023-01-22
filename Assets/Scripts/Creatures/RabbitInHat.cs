@@ -14,14 +14,17 @@ namespace Creatures
         public override void Move(Vector2Int destination, float duration)
         {
             var direction = destination - MapCoords;
-            if (direction.magnitude > 1.5f)
-            {
-                FancyJump(destination, duration, direction);
-            }
-            else
-            {
-                StartCoroutine(moveset.Jump(MapCoords, destination, duration));
-            }
+            // if (direction.magnitude > 1.5f)
+            // {
+            //     FancyJump(destination, duration, direction);
+            // }
+            // else
+            // {
+                // StartCoroutine(moveset.Jump(MapCoords, destination, duration));
+            // }
+            Debug.Log($"duration: {duration}");
+            var move = new Jump(transform, destination, duration);
+            StartCoroutine(Coroutines.StartMove(move));
             faceDirection = direction;
             MapCoords = destination;
         }
