@@ -5,14 +5,13 @@ using UnityEngine;
 
 namespace Movement
 {
+    // TODO: make class and all its methods static
     public class RabbitMoveset: Moveset
     {
-        // TODO: movement should be dependent on terrain, while Creature should be made independent of it.
         public new float totalRotationTime = 0.25f;
 
         public static float JumpHeight(float jumpTime)
         {
-            // TODO: проверить вычисления, почему-то высоко прыгающий кролик а
             return jumpTime * jumpTime / Constants.TimeToHeightCoefficient;
         }
 
@@ -42,7 +41,6 @@ namespace Movement
             }
         }
         
-        
         public IEnumerator Backflip(Vector2Int startCoords, Vector2Int targetCoords, float movementDuration) {
             
             Vector3 startPosition = terrain.MapToWorld(startCoords);
@@ -67,6 +65,106 @@ namespace Movement
                 yield return null;
             }
         }
+        
+        public IEnumerator DoubleFrontFlip(Vector2Int startCoords, Vector2Int targetCoords, float movementDuration) {
+            
+            Vector3 startPosition = terrain.MapToWorld(startCoords);
+            Vector3 targetPosition = terrain.MapToWorld(targetCoords);
+            
+            Quaternion startRotation = transform.rotation;
+            Quaternion targetRotation = Quaternion.LookRotation(startPosition - targetPosition, Vector3.up);
+            
+            float maxJumpHeight = JumpHeight(movementDuration);
+            
+            float currentMovementTime = 0f; //The amount of time that has passed
+
+            while (currentMovementTime < movementDuration) {
+                var deltaTime = Time.deltaTime;
+                currentMovementTime += deltaTime;
+                transform.position =
+                    Vector3.Lerp(startPosition, targetPosition, currentMovementTime / movementDuration)
+                    + Vector3.up * Height(maxJumpHeight, currentMovementTime / movementDuration);
+                
+                transform.Rotate(- 2 * 360 * deltaTime/movementDuration, 0, 0, Space.Self);
+
+                yield return null;
+            }
+        }
+        public IEnumerator DoubleBackFlip(Vector2Int startCoords, Vector2Int targetCoords, float movementDuration) {
+            
+            Vector3 startPosition = terrain.MapToWorld(startCoords);
+            Vector3 targetPosition = terrain.MapToWorld(targetCoords);
+            
+            Quaternion startRotation = transform.rotation;
+            Quaternion targetRotation = Quaternion.LookRotation(startPosition - targetPosition, Vector3.up);
+            
+            float maxJumpHeight = JumpHeight(movementDuration);
+            
+            float currentMovementTime = 0f; //The amount of time that has passed
+
+            while (currentMovementTime < movementDuration) {
+                var deltaTime = Time.deltaTime;
+                currentMovementTime += deltaTime;
+                transform.position =
+                    Vector3.Lerp(startPosition, targetPosition, currentMovementTime / movementDuration)
+                    + Vector3.up * Height(maxJumpHeight, currentMovementTime / movementDuration);
+                
+                transform.Rotate(2 * 360 * deltaTime/movementDuration, 0, 0, Space.Self);
+
+                yield return null;
+            }
+        }
+        
+        public IEnumerator DoubleLeftFlip(Vector2Int startCoords, Vector2Int targetCoords, float movementDuration) {
+            
+            Vector3 startPosition = terrain.MapToWorld(startCoords);
+            Vector3 targetPosition = terrain.MapToWorld(targetCoords);
+            
+            Quaternion startRotation = transform.rotation;
+            Quaternion targetRotation = Quaternion.LookRotation(startPosition - targetPosition, Vector3.up);
+            
+            float maxJumpHeight = JumpHeight(movementDuration);
+            
+            float currentMovementTime = 0f; //The amount of time that has passed
+
+            while (currentMovementTime < movementDuration) {
+                var deltaTime = Time.deltaTime;
+                currentMovementTime += deltaTime;
+                transform.position =
+                    Vector3.Lerp(startPosition, targetPosition, currentMovementTime / movementDuration)
+                    + Vector3.up * Height(maxJumpHeight, currentMovementTime / movementDuration);
+                
+                transform.Rotate(0,0, 2 * 360 * deltaTime/movementDuration, Space.Self);
+
+                yield return null;
+            }
+        }
+        
+        public IEnumerator DoubleRightFlip(Vector2Int startCoords, Vector2Int targetCoords, float movementDuration) {
+            
+            Vector3 startPosition = terrain.MapToWorld(startCoords);
+            Vector3 targetPosition = terrain.MapToWorld(targetCoords);
+            
+            Quaternion startRotation = transform.rotation;
+            Quaternion targetRotation = Quaternion.LookRotation(startPosition - targetPosition, Vector3.up);
+            
+            float maxJumpHeight = JumpHeight(movementDuration);
+            
+            float currentMovementTime = 0f; //The amount of time that has passed
+
+            while (currentMovementTime < movementDuration) {
+                var deltaTime = Time.deltaTime;
+                currentMovementTime += deltaTime;
+                transform.position =
+                    Vector3.Lerp(startPosition, targetPosition, currentMovementTime / movementDuration)
+                    + Vector3.up * Height(maxJumpHeight, currentMovementTime / movementDuration);
+                
+                transform.Rotate(0,0, - 2 * 360 * deltaTime/movementDuration, Space.Self);
+
+                yield return null;
+            }
+        }
+        
         /// <summary>
         /// Calculate current height position in a jump given max height and timeElapsed/totalJumpTime
         /// </summary>
@@ -75,5 +173,6 @@ namespace Movement
             return (1f - 4f * (relativeTimeElapsed - 0.5f) * (relativeTimeElapsed - 0.5f)) * jumpHeight;
         }
 
+        
     }
 }

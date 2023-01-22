@@ -14,6 +14,7 @@ namespace Factories
         public Terrain terrain;
         public TurnQueue turnQueue;
         public Rabbit rabbitPrefab;
+        public RabbitInHat rabbitInHatPrefab;
 
         private void Awake()
         {
@@ -24,6 +25,14 @@ namespace Factories
         public Rabbit CreateRabbit(Vector2Int coords)
         {
             var rabbit = Instantiate(rabbitPrefab, terrain.MapToWorld(coords), Quaternion.identity);
+            rabbit.transform.SetParent(GameObject.Find("Creatures").transform);
+            turnQueue.Push(Time.time + Random.value * 1f, rabbit, rabbit.GetComponent<CreatureMind>());
+            rabbit.Init(coords);
+            return rabbit;
+        }
+        public RabbitInHat CreateRabbitInHat(Vector2Int coords)
+        {
+            var rabbit = Instantiate(rabbitInHatPrefab, terrain.MapToWorld(coords), Quaternion.identity);
             rabbit.transform.SetParent(GameObject.Find("Creatures").transform);
             turnQueue.Push(Time.time + Random.value * 1f, rabbit, rabbit.GetComponent<CreatureMind>());
             rabbit.Init(coords);

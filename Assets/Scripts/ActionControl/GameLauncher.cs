@@ -24,12 +24,13 @@ namespace ActionControl
 
         private void Start()
         {
-            for (var i = 28; i < 33; i++)
-                for (var j = 28; j < 33; j++)
-                {
-                    var rabbit = creatureFactory.CreateRabbit(new Vector2Int(i, j));
-                }
-
+            // for (var i = 28; i < 33; i++)
+            //     for (var j = 28; j < 33; j++)
+            //     {
+            //         var rabbit = creatureFactory.CreateRabbit(new Vector2Int(i, j));
+            //     }
+            creatureFactory.CreateRabbitInHat(new Vector2Int(60, 60));
+            creatureFactory.CreateRabbit(new Vector2Int(61, 61));
         }
     }
 }

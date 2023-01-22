@@ -4,34 +4,34 @@ using UnityEngine.Assertions;
 
 namespace Commands
 {
-    public class BackflipCommand : Command
-    // TODO: merge it with move command and relocate animation choise to Animal.Move
+    public class JumpCommand : Command
     {
         public Vector2Int direction;
-        public BackflipCommand(Creature creature, Vector2Int direction, float duration)
+
+        public JumpCommand(Creature creature, Vector2Int direction, float duration)
         {
             this.creature = creature;
             this.direction = direction;
             this.duration = duration;
         }
-        
+
         public override void Validate()
         {
-            // TODO: убрать хардкод на кролика
-            Assert.IsTrue(creature is Rabbit);            
+            // TODO: в будущем движимость должна определяться реализацией интерфейса IMovable, а не класса Animal
+            Assert.IsTrue(creature is Animal);
             
-            Assert.IsTrue(direction.magnitude > 0);
-            
+            Assert.IsTrue(direction.magnitude > 1);
+
             var newMapCoords = creature.MapCoords + direction;
             Assert.IsTrue(Map.IsWalkableAndVacant(newMapCoords));
         }
-        
+
         public override void Execute()
         {
             var destination = creature.MapCoords + direction;
 
-            var animal = creature as Rabbit;
-            animal.Backflip(destination, duration);
+            var animal = creature as Animal;
+            animal.Move(destination, duration);
         }
     }
 }
