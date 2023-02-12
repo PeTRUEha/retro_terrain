@@ -14,7 +14,6 @@ namespace Creatures
         /// Responsible for physical aspects of an animal: movement, HP, hunger etc.
         /// </summary>
         [NonSerialized]
-        public Moveset moveset;
         public Vector2Int faceDirection = Vector2Int.up;
 
         public abstract void Move(Vector2Int destination, float duration);

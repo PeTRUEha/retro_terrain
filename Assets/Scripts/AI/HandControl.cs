@@ -17,7 +17,7 @@ namespace AI
             {
                 //TODO: стоимость команды должна определяться не в модуле ИИ и должна зависить от статов и состояния
                 // существа
-                command = new MoveCommand(creature, _direction, 10);
+                command = new WalkCommand(creature, _direction, 10);
             }
             else
             {

@@ -23,7 +23,7 @@ namespace Movement
         public static float timeToTurn = 0.25f;
 
         public Jump(Transform transform, Vector3 endPosition, float duration,
-            int backwardForwardFlips, int leftRightFlips)
+            int backwardForwardFlips, int leftRightFlips, bool isBackwards)
         {
             Debug.Log("creating Jump");
             this._transform = transform;
@@ -33,7 +33,8 @@ namespace Movement
             this._endPosition = endPosition;
             
             this._startRotation = transform.rotation;
-            this._endRotation = Quaternion.LookRotation(endPosition - _startPosition, Vector3.up);
+            this._endRotation = isBackwards ? Quaternion.LookRotation(_startPosition - endPosition, Vector3.up) 
+                : Quaternion.LookRotation(endPosition - _startPosition, Vector3.up);
 
             this._jumpHeight = MaxHeight(duration);
             this.duration = duration;
@@ -47,13 +48,15 @@ namespace Movement
             Vector2Int endPosition,
             float duration,
             int backwardForwardFlips=0,
-            int leftRightFlips=0
+            int leftRightFlips=0,
+            bool isBackwards = false
         ) : this(
             transform,
             terrain.MapToWorld(endPosition),
             duration,
             backwardForwardFlips,
-            leftRightFlips
+            leftRightFlips,
+            isBackwards
         ) {}
 
         public override void UpdateTransform(float time)

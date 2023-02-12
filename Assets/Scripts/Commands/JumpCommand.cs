@@ -6,6 +6,9 @@ namespace Commands
 {
     public class JumpCommand : Command
     {
+        /// <summary>
+        /// Прыжок на несколько клеток
+        /// </summary>
         public Vector2Int direction;
 
         public JumpCommand(Creature creature, Vector2Int direction, float duration)

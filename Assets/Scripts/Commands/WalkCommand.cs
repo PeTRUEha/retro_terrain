@@ -4,11 +4,14 @@ using UnityEngine.Assertions;
 
 namespace Commands
 {
-    public class MoveCommand : Command
+    public class WalkCommand : Command
     {
+        /// <summary>
+        /// Движение на одну клетку.
+        /// </summary>
         public Vector2Int direction;
 
-        public MoveCommand(Creature creature, Vector2Int direction, float duration)
+        public WalkCommand(Creature creature, Vector2Int direction, float duration)
         {
             this.creature = creature;
             this.direction = direction;

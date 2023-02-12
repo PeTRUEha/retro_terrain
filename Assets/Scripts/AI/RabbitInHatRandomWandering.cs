@@ -26,7 +26,7 @@ namespace AI
             }
             else if(direction.magnitude < 1.5f)
             {
-                command = new MoveCommand(creature, direction, 1);
+                command = new WalkCommand(creature, direction, 1);
                 // TODO: duration must be determined externally. Maybe make it in Command as a property.
             }
             else
