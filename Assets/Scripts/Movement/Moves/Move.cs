@@ -1,9 +1,7 @@
-﻿using Creatures;
-using Navigation;
-using UnityEngine;
+﻿using UnityEngine;
 using Terrain = Landscape.Terrain;
 
-namespace Movement
+namespace Movement.Moves
 {
     public abstract class Move
     {

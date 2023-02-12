@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Movement
+namespace Movement.Moves
 {
     public class Jump: Move
     {
