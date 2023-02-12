@@ -23,7 +23,7 @@ namespace Creatures
                 // StartCoroutine(moveset.Jump(MapCoords, destination, duration));
             // }
             Debug.Log($"duration: {duration}");
-            var move = new Jump(transform, destination, duration);
+            var move = new Jump(transform, destination, duration, backwardForwardFlips: 1);
             StartCoroutine(Coroutines.StartMove(move));
             faceDirection = direction;
             MapCoords = destination;

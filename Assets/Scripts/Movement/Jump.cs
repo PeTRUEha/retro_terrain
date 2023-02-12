@@ -4,70 +4,74 @@ namespace Movement
 {
     public class Jump: Move
     {
-        private Transform transform;
-        private Transform modelTransform;
+        private Transform _transform;
+        private Transform _modelTransform;
         
-        private Vector3 startPosition;
-        private Vector3 endPosition;
+        private Vector3 _startPosition;
+        private Vector3 _endPosition;
         
-        private Quaternion startRotation;
-        private Quaternion endRotation;
+        private Quaternion _startRotation;
+        private Quaternion _endRotation;
 
-        private float jumpHeight;
+        private float _jumpHeight;
 
-        private int forwardFlips;
-        private int leftFlips;
+        private int _backwardForwardFlips;
+        private int _leftRightFlips;
 
-        public static float rotationTime = 0.25f;
+        private float _lastTime = 0;
 
-        public Jump(Transform transform, Vector3 endPosition, float duration, int forwardFlips, int leftFlips)
+        public static float timeToTurn = 0.25f;
+
+        public Jump(Transform transform, Vector3 endPosition, float duration,
+            int backwardForwardFlips, int leftRightFlips)
         {
             Debug.Log("creating Jump");
-            this.transform = transform;
-            modelTransform = transform.GetChild(0);
+            this._transform = transform;
+            _modelTransform = transform.GetChild(0);
             
-            this.startPosition = transform.position;
-            this.endPosition = endPosition;
+            this._startPosition = transform.position;
+            this._endPosition = endPosition;
             
-            this.startRotation = transform.rotation;
-            this.endRotation = Quaternion.LookRotation(endPosition - startPosition, Vector3.up);
+            this._startRotation = transform.rotation;
+            this._endRotation = Quaternion.LookRotation(endPosition - _startPosition, Vector3.up);
 
-            this.jumpHeight = MaxHeight(duration);
+            this._jumpHeight = MaxHeight(duration);
             this.duration = duration;
 
-            this.forwardFlips = forwardFlips;
-            this.leftFlips = leftFlips;
+            this._backwardForwardFlips = backwardForwardFlips;
+            this._leftRightFlips = leftRightFlips;
         }
 
         public Jump(
             Transform transform,
             Vector2Int endPosition,
             float duration,
-            int forwardFlips=0,
-            int leftFlips=0
+            int backwardForwardFlips=0,
+            int leftRightFlips=0
         ) : this(
             transform,
             terrain.MapToWorld(endPosition),
             duration,
-            forwardFlips,
-            leftFlips
+            backwardForwardFlips,
+            leftRightFlips
         ) {}
 
         public override void UpdateTransform(float time)
         {
+            var relativeTimeDelta = (time - _lastTime) / duration;
+            _lastTime = time;
+
             var relativeTime = time / duration;
-            var relativeRotationTime = time / rotationTime;
+            var relTurnTime = time / timeToTurn;
             
-            transform.position =
-                Vector3.Lerp(startPosition, endPosition, relativeTime)
-                + Vector3.up * Height(jumpHeight, relativeTime);
+            _transform.position =
+                Vector3.Lerp(_startPosition, _endPosition, relativeTime)
+                + Vector3.up * Height(_jumpHeight, relativeTime);
                 
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation,  relativeRotationTime);
+            _transform.rotation = Quaternion.Slerp(_startRotation, _endRotation,  relTurnTime);
             
-            modelTransform.Rotate(- forwardFlips * 360 * relativeTime, 0, 0, Space.Self);
-            modelTransform.Rotate(0,0, leftFlips * 360 * relativeTime, Space.Self);
-            Debug.Log($"position {transform.position}");
-            Debug.Log($"rotation {transform.rotation}");
+            _modelTransform.Rotate(- _backwardForwardFlips * 360 * relativeTimeDelta, 0, 0, Space.Self);
+            _modelTransform.Rotate(0,0, _leftRightFlips * 360 * relativeTimeDelta, Space.Self);
         }
         
         private static float MaxHeight(float jumpTime)
