@@ -45,8 +45,9 @@ namespace AI
                     if (direction != Vector2Int.zero)
                     {
                         possibleDirections.Add(direction);
-                        if (Vector2.Angle(creature.faceDirection, direction) % 90 == 0)
-                            possibleDirections.Add(direction * 2);
+                        
+                        // if (Vector2.Angle(creature.faceDirection, direction) % 90 == 0)
+                        possibleDirections.Add(direction * 2);
                     }
                 }
 

@@ -38,5 +38,15 @@ namespace Utils
             }
             
         }
+
+        public static Vector3 DropY(Vector3 input)
+        {
+            return new Vector3(input.x, 0f, input.z);
+        }
+
+        public static float Mod360(float input)
+        {
+            return (input + 360f) % 360f;
+        }
     }
 }

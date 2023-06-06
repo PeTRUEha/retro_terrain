@@ -8,5 +8,6 @@ namespace Movement.Moves
         protected static Terrain terrain = GameObject.Find("Terrain").GetComponent<Terrain>();
         public float duration;
         public abstract void UpdateTransform(float time);
+        public abstract void CorrectRotation();
     }
 }

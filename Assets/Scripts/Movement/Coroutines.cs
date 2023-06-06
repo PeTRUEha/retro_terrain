@@ -16,7 +16,8 @@ namespace Movement
                 move.UpdateTransform(currentMovementTime);
                 yield return null;
             }
-            
+            move.CorrectRotation();
+
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils;
 
 namespace Movement.Moves
 {
@@ -23,9 +24,8 @@ namespace Movement.Moves
         public static float timeToTurn = 0.25f;
 
         public Jump(Transform transform, Vector3 endPosition, float duration,
-            int backwardForwardFlips, int leftRightFlips, bool isBackwards)
+            int backwardForwardFlips, int leftRightFlips, bool rotate)
         {
-            Debug.Log("creating Jump");
             this._transform = transform;
             _modelTransform = transform.GetChild(0);
             
@@ -33,8 +33,11 @@ namespace Movement.Moves
             this._endPosition = endPosition;
             
             this._startRotation = transform.rotation;
-            this._endRotation = isBackwards ? Quaternion.LookRotation(_startPosition - endPosition, Vector3.up) 
-                : Quaternion.LookRotation(endPosition - _startPosition, Vector3.up);
+            this._endRotation = rotate ? 
+                Quaternion.LookRotation(Math.DropY(endPosition - _startPosition), Vector3.up)
+                : _startRotation;
+            Debug.Log($"start rotation: {_startRotation}");
+            Debug.Log($"end rotation: {_endRotation}");
 
             this._jumpHeight = MaxHeight(duration);
             this.duration = duration;
@@ -49,14 +52,14 @@ namespace Movement.Moves
             float duration,
             int backwardForwardFlips=0,
             int leftRightFlips=0,
-            bool isBackwards = false
+            bool rotate = true
         ) : this(
             transform,
             terrain.MapToWorld(endPosition),
             duration,
             backwardForwardFlips,
             leftRightFlips,
-            isBackwards
+            rotate
         ) {}
 
         public override void UpdateTransform(float time)
@@ -72,9 +75,18 @@ namespace Movement.Moves
                 + Vector3.up * Height(_jumpHeight, relativeTime);
                 
             _transform.rotation = Quaternion.Slerp(_startRotation, _endRotation,  relTurnTime);
-            
+            // _modelTransform.localEulerAngles += new Vector3(
+            //     _leftRightFlips * 360 * relativeTimeDelta,
+            //      -_backwardForwardFlips * 360 * relativeTimeDelta,
+            //      0);
+            // TODO: почему-то этот код не работает, когда нужно вращать по двум осям одновременно.
             _modelTransform.Rotate(- _backwardForwardFlips * 360 * relativeTimeDelta, 0, 0, Space.Self);
             _modelTransform.Rotate(0,0, _leftRightFlips * 360 * relativeTimeDelta, Space.Self);
+        }
+
+        public override void CorrectRotation()
+        {
+            _modelTransform.localRotation = Quaternion.identity;
         }
         
         private static float MaxHeight(float jumpTime)

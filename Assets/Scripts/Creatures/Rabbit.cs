@@ -13,15 +13,15 @@ namespace Creatures
             Move move;
             if (duration > 1)
             {
-                move = new Jump(transform, destination, duration, backwardForwardFlips: 1, isBackwards:true);
+                move = new Jump(transform, destination, duration, backwardForwardFlips: 1, rotate:false);
             }
             else
             {
                 move = new Jump(transform, destination, duration);
+                faceDirection = direction;
             }
 
             StartCoroutine(Coroutines.StartMove(move));
-            faceDirection = direction;
             MapCoords = destination;
         }
     }
